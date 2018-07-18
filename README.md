@@ -33,13 +33,14 @@ git clone git@bitbucket.org:bikle/t21a.git
 * Then, install its packages:
 
 ```
-cd t21a
+cd ~/t21a
 bundle install
 ```
 
 * Next, install Anaconda Python:
 
 ```
+cd ~
 wget https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh
 bash Anaconda3-5.2.0-Linux-x86_64.sh -b
 mv ~/anaconda3/bin/curl  ~/anaconda3/bin/curl_ana
@@ -56,3 +57,27 @@ ln -s  node-v10.7.0-linux-x64 node
 echo 'export PATH="${HOME}/node/bin:$PATH"' >> ~/.bashrc
 bash
 ```
+
+* Next, see if Rails will start:
+
+```
+cd ~/t21a
+bin/rails --help
+bin/rails server
+```
+
+* I should see something like this:
+
+```
+t21a@ub16t21:~/t21a $ bin/rails server
+=> Booting Puma
+=> Rails 5.2.0 application starting in development 
+=> Run `rails server -h` for more startup options
+Puma starting in single mode...
+* Version 3.12.0 (ruby 2.5.1-p57), codename: Llamas in Pajamas
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://0.0.0.0:3000
+Use Ctrl-C to stop
+```
+
