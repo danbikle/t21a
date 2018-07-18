@@ -1,0 +1,5 @@
+GLD
+^DJI
+^GSPC
+^IXIC
+^RUT
