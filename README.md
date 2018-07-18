@@ -22,4 +22,18 @@ git clone https://github.com/rbenv/ruby-build.git .rbenv/plugins/ruby-build
 bash
 rbenv install 2.5.1
 rbenv global  2.5.1
+gem install bundler
+```
+
+* Next, clone this app:
+
+```
+git clone git@bitbucket.org:bikle/t21a.git
+```
+
+* Then, install its packages:
+
+```
+cd t21a
+bundle install
 ```
