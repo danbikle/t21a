@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To work on this app, you need to follow these steps to setup your dev-environment:
 
-Things you may want to cover:
+* Get an Ubuntu 16.04 Linux host
 
-* Ruby version
+```
+Add this syntax to .bashrc:
 
-* System dependencies
+if [ -e ${HOME}/.rbenv ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+```
 
-* Configuration
+* Install Ruby 2.5.1 with these shell commands:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+cd ~
+git clone https://github.com/rbenv/rbenv .rbenv
+git clone https://github.com/rbenv/ruby-build.git .rbenv/plugins/ruby-build
+bash
+rbenv install 2.5.1
+rbenv global  2.5.1
+```
