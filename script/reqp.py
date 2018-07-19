@@ -41,7 +41,7 @@ nowutime_s   = datetime.datetime.now().strftime("%s")
 params_s     = '?period1=-631123200&period2='+nowutime_s+'&interval=1d&events='
 
 def get_tkr():
-  pdb.set_trace()
+  """This function should get CSV data for a tkr and return a status of that attempt."""
   type_s    = 'history'
   history_s = yahoo_s+tkr+'/history?p='+tkr
   with requests.Session() as ssn:
@@ -90,38 +90,6 @@ with open(tkrs_s) as fh:
       if csv_status_i == 200:
         'be happy'
       else:
-        'try 3rd time the last time'
+        'try 3rd time, the last time'
         csv_status_i = get_tkr()
-      
-
-
-    
-  def ignoreme():  
-    history_s = yahoo_s+tkr+'/history?p='+tkr
-    with requests.Session() as ssn:
-      tkr_r   = ssn.get(history_s,headers=headers_d)
-      html_s  = tkr_r.content.decode("utf-8")
-      # with open(outdirh+tkr+'.html','w') as fh:
-      with open('req/html/'+tkr+'.html','w') as fh:
-        fh.write(html_s)
-      pattern_re = r'(CrumbStore":{"crumb":")(.+?")'
-      pattern_ma = re.search(pattern_re, html_s)
-      crumb_s    = pattern_ma[2].replace('"','') # erase " on end of crumb
-      print('crumb_s:')
-      print(crumb_s)
-      for type_s in csv_types_l:
-        csvurl_s = ycsv_s+tkr+params_s+type_s+'&crumb='+crumb_s
-        # yahoo server needs time to remember the cookie-crumb-pair it just served:
-        time.sleep(5)
-        csv_r        = ssn.get(csvurl_s,headers=headers_d)
-        csv_s        = csv_r.content.decode("utf-8")
-        csv_status_i = csv_r.status_code
-        if (csv_status_i == 200) :
-          # I should write the csv_s to csv file:
-          csvf_s = 'req/csv/'+type_s+'/'+tkr+'.csv'
-          with open( csvf_s,'w') as fh:
-            fh.write(csv_s)
-            print('wrote: ', csvf_s)
-        else:
-          print(tkr, type_s, 'status not 200 for some reason')
 'bye'
