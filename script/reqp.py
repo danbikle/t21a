@@ -40,7 +40,7 @@ ycsv_s       = 'https://query1.finance.yahoo.com/v7/finance/download/'
 nowutime_s   = datetime.datetime.now().strftime("%s")
 params_s     = '?period1=-631123200&period2='+nowutime_s+'&interval=1d&events='
 
-def get_tkr(tkr):
+def get_tkr():
   pdb.set_trace()
   type_s    = 'history'
   history_s = yahoo_s+tkr+'/history?p='+tkr
@@ -81,8 +81,10 @@ with open(tkrs_s) as fh:
   tkrlist_s   = fh.read()
   tkrlist_l   = tkrlist_s.split()
   for tkr in tkrlist_l:
+    csv_status_i = get_tkr()
 
-    csv_status_i = get_tkr(tkr)
+
+    
   def ignoreme():  
     history_s = yahoo_s+tkr+'/history?p='+tkr
     with requests.Session() as ssn:
