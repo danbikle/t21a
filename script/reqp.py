@@ -82,6 +82,17 @@ with open(tkrs_s) as fh:
   tkrlist_l   = tkrlist_s.split()
   for tkr in tkrlist_l:
     csv_status_i = get_tkr()
+    if csv_status_i == 200:
+      'be happy'
+    else:
+      'try again'
+      csv_status_i = get_tkr()
+      if csv_status_i == 200:
+        'be happy'
+      else:
+        'try 3rd time the last time'
+        csv_status_i = get_tkr()
+      
 
 
     
