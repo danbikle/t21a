@@ -41,6 +41,26 @@ nowutime_s   = datetime.datetime.now().strftime("%s")
 params_s     = '?period1=-631123200&period2='+nowutime_s+'&interval=1d&events='
 
 def get_tkr(tkr):
+  pdb.set_trace()
+  type_s    = 'history'
+  history_s = yahoo_s+tkr+'/history?p='+tkr
+  with requests.Session() as ssn:
+    tkr_r   = ssn.get(history_s,headers=headers_d)
+    html_s  = tkr_r.content.decode("utf-8")
+    # with open(outdirh+tkr+'.html','w') as fh:
+    with open('req/html/'+tkr+'.html','w') as fh:
+      fh.write(html_s)
+    pattern_re = r'(CrumbStore":{"crumb":")(.+?")'
+    pattern_ma = re.search(pattern_re, html_s)
+    crumb_s    = pattern_ma[2].replace('"','') # erase " on end of crumb
+    print('crumb_s:')
+    print(crumb_s)
+    for type_s in csv_types_l:
+      csvurl_s = ycsv_s+tkr+params_s+type_s+'&crumb='+crumb_s
+      # yahoo server needs time to remember the cookie-crumb-pair it just served:
+      time.sleep(5)
+      csv_r        = ssn.get(csvurl_s,headers=headers_d)
+      csv_s        = csv_r.content.decode("utf-8")
   return True
 
 # I should use tkrlist.txt drive a loop
@@ -52,8 +72,7 @@ with open(tkrs_s) as fh:
   tkrlist_s   = fh.read()
   tkrlist_l   = tkrlist_s.split()
   for tkr in tkrlist_l:
-    
-    pdb.set_trace()
+
     tf = get_tkr(tkr)
     
     history_s = yahoo_s+tkr+'/history?p='+tkr
