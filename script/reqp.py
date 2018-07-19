@@ -55,13 +55,22 @@ def get_tkr(tkr):
     crumb_s    = pattern_ma[2].replace('"','') # erase " on end of crumb
     print('crumb_s:')
     print(crumb_s)
-    for type_s in csv_types_l:
-      csvurl_s = ycsv_s+tkr+params_s+type_s+'&crumb='+crumb_s
-      # yahoo server needs time to remember the cookie-crumb-pair it just served:
-      time.sleep(5)
-      csv_r        = ssn.get(csvurl_s,headers=headers_d)
-      csv_s        = csv_r.content.decode("utf-8")
-  return True
+    # for type_s in csv_types_l:
+    csvurl_s = ycsv_s+tkr+params_s+type_s+'&crumb='+crumb_s
+    # yahoo server needs time to remember the cookie-crumb-pair it just served:
+    time.sleep(5)
+    csv_r        = ssn.get(csvurl_s,headers=headers_d)
+    csv_status_i = csv_r.status_code
+    if (csv_status_i == 200) :
+      # I should write the csv_s to csv file:
+      csv_s  = csv_r.content.decode("utf-8")
+      csvf_s = 'req/csv/'+type_s+'/'+tkr+'.csv'
+      with open( csvf_s,'w') as fh:
+        fh.write(csv_s)
+        print('wrote: ', csvf_s)
+    else:
+      print(tkr, type_s, 'status not 200 for some reason')
+  return csv_status_i
 
 # I should use tkrlist.txt drive a loop
 
@@ -73,8 +82,8 @@ with open(tkrs_s) as fh:
   tkrlist_l   = tkrlist_s.split()
   for tkr in tkrlist_l:
 
-    tf = get_tkr(tkr)
-    
+    csv_status_i = get_tkr(tkr)
+  def ignoreme():  
     history_s = yahoo_s+tkr+'/history?p='+tkr
     with requests.Session() as ssn:
       tkr_r   = ssn.get(history_s,headers=headers_d)
