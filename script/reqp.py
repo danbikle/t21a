@@ -4,6 +4,7 @@ reqp.py
 This script should request prices.
 
 Demo:
+cd ~/t21a/script/
 ~/anaconda3/bin/python reqp.py tkrlist.txt
 """
 
@@ -39,6 +40,9 @@ ycsv_s       = 'https://query1.finance.yahoo.com/v7/finance/download/'
 nowutime_s   = datetime.datetime.now().strftime("%s")
 params_s     = '?period1=-631123200&period2='+nowutime_s+'&interval=1d&events='
 
+def get_tkr(tkr):
+  return True
+
 # I should use tkrlist.txt drive a loop
 
 # I get csv from URL like this:
@@ -48,6 +52,10 @@ with open(tkrs_s) as fh:
   tkrlist_s   = fh.read()
   tkrlist_l   = tkrlist_s.split()
   for tkr in tkrlist_l:
+    
+    pdb.set_trace()
+    tf = get_tkr(tkr)
+    
     history_s = yahoo_s+tkr+'/history?p='+tkr
     with requests.Session() as ssn:
       tkr_r   = ssn.get(history_s,headers=headers_d)

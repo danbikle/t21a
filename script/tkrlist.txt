@@ -1,4 +1,9 @@
 GLD
+IBM
+MDY
+QQQ
+TLT
+XOM
 ^DJI
 ^GSPC
 ^IXIC
