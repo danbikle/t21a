@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+# https://stackoverflow.com/questions/41454333/meaning-of-new-block-git-sourcegithub-in-gemfile
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'

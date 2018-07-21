@@ -1,7 +1,9 @@
 GLD
 IBM
+IWM
 MDY
 QQQ
+SLV
 TLT
 XOM
 ^DJI
