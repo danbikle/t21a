@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 # https://stackoverflow.com/questions/41454333/meaning-of-new-block-git-sourcegithub-in-gemfile
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+# Which version of Ruby should I use with this app?
+# Discussion:
+# https://devcenter.heroku.com/articles/ruby-versions
 ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
