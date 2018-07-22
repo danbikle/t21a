@@ -9,7 +9,6 @@ ruby '2.5.1'
 
 # For heroku:
 gem 'bundler','1.16.3'
-
 gem 'rails_12factor','0.0.3'
 group :production do
   gem 'pg','1.0.0'
