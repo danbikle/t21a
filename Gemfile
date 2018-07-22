@@ -7,6 +7,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # https://devcenter.heroku.com/articles/ruby-versions
 ruby '2.5.1'
 
+gem 'devise'
+
 # For heroku:
 gem 'bundler','1.16.3'
 
