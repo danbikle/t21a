@@ -37,11 +37,9 @@ prices_df = pd.read_csv(file_s)
 date_sr = pd.to_datetime(prices_df.Date)
 date2_sr = date_sr.dt
 dow_sr   = date2_sr.dayofweek
-days_l   = []
-for ii in range(5):
-    days_l.append((dow_sr == 0).astype('int'))
-days_l[0].tail(33)
 
 feat_df = prices_df.copy()[['Date','Close']]
-
+for ii in range(5):
+  feat_df['day'+str(ii)] = (dow_sr == ii).astype('int')
+feat_df.tail(33)
 'bye'
