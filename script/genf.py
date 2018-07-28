@@ -34,12 +34,16 @@ name_s = name_l[-1]
 prices_df = pd.read_csv(file_s)
 
 # I should extract weekday from Date:
-date_sr = pd.to_datetime(prices_df.Date)
-date2_sr = date_sr.dt
-dow_sr   = date2_sr.dayofweek
+date_sr = pd.to_datetime(prices_df.Date).dt
+dow_sr  = date_sr.dayofweek
+moy_sr  = date_sr.month
 
 feat_df = prices_df.copy()[['Date','Close']]
-for ii in range(5):
-  feat_df['day'+str(ii)] = (dow_sr == ii).astype('int')
+for day_i in range(5):
+  feat_df['day'+str(day_i)] = (dow_sr == day_i).astype('int')
+min_i = moy_sr.min()
+max_i = moy_sr.max()+1
+for moy_i in range(min_i,max_i):
+  feat_df['moy'+str(moy_i)] = (moy_sr == moy_i).astype('int')
 feat_df.tail(33)
 'bye'
