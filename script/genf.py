@@ -33,10 +33,14 @@ name_s = name_l[-1]
 # I should load the CSV data into a DF
 prices_df = pd.read_csv(file_s)
 
-# I should extract weekday from Date:
+# I should extract date-features:
 date_sr = pd.to_datetime(prices_df.Date).dt
-dow_sr  = date_sr.dayofweek
-moy_sr  = date_sr.month
+# I should extract weekday from Date:
+dow_sr = date_sr.dayofweek
+# And month of year:
+moy_sr = date_sr.month
+
+# I should encode dayofweek and month as binary data:
 
 feat_df = prices_df.copy()[['Date','Close']]
 for day_i in range(5):
