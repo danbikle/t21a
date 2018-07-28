@@ -41,13 +41,18 @@ dow_sr = date_sr.dayofweek
 moy_sr = date_sr.month
 
 # I should encode dayofweek and month as binary data:
-
 feat_df = prices_df.copy()[['Date','Close']]
+feat_df.columns = ['cdate','cp']
 for day_i in range(5):
   feat_df['day'+str(day_i)] = (dow_sr == day_i).astype('int')
 min_i = moy_sr.min()
 max_i = moy_sr.max()+1
 for moy_i in range(min_i,max_i):
   feat_df['moy'+str(moy_i)] = (moy_sr == moy_i).astype('int')
-feat_df.tail(33)
+
+# I should extract price features:
+# But first, I should calculate the dependent variable:
+feat_df['pct_lead'] = 100.0*((feat_df.cp.shift(-1) - feat_df.cp) / feat_df.cp).fillna(0)
+
+feat_df.head()
 'bye'
