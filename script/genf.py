@@ -51,8 +51,11 @@ min_i = moy_sr.min()
 max_i = moy_sr.max()+1
 for moy_i in range(min_i,max_i):
   feat_df['moy'+str(moy_i)] = (moy_sr == moy_i).astype('int')
-
-# I should extract price features:
+# Now, I should get 'lag' features from price:
+feat_df['pct_lag1'] = 100.0*((feat_df.cp - feat_df.cp.shift(1))/feat_df.cp.shift(1)).fillna(0)
+feat_df['pct_lag2'] = 100.0*((feat_df.cp - feat_df.cp.shift(2))/feat_df.cp.shift(2)).fillna(0)
+feat_df['pct_lag4'] = 100.0*((feat_df.cp - feat_df.cp.shift(4))/feat_df.cp.shift(4)).fillna(0)
+feat_df['pct_lag8'] = 100.0*((feat_df.cp - feat_df.cp.shift(8))/feat_df.cp.shift(8)).fillna(0)
 
 feat_df.head()
 'bye'
