@@ -69,6 +69,14 @@ feat_df['comb14c'] = feat_df.pct_lag1 * feat_df.pct_lag4 * neg1_sr * pos4_sr
 feat_df['comb14d'] = feat_df.pct_lag1 * feat_df.pct_lag4 * neg1_sr * neg4_sr
 
 
+# I should write features to csv-file:
+featfile_s = file_s.replace('.csv','_feat.csv')
+feat_df.to_csv(featfile_s, index=False, float_format='%4.4f')
+
+# I should see if I can read it:
+feat2_df = pd.read_csv(featfile_s)
 
 feat_df.tail()
+feat2_df.tail()
+
 'bye'
