@@ -75,4 +75,26 @@ print(effectiveness)
 # I should look at long-only effectiveness:
 print(yr_s,'lo_effectiveness:')
 print(np.sum(actuals_a))
+
+# I should use Logistic Regression next:
+label_train_a = y_train_a > 0
+logr_mod  = linear_model.LogisticRegression()
+logr_mod.fit(x_train_a, label_train_a)
+
+# I should look at the model:
+logr_mod.coef_
+logr_mod.intercept_
+# Now that I have learned, I should predict:
+logr_predictions_a = logr_mod.predict(test_a)
+eff_l = []
+act_i = 0
+for act_f in actuals_a:
+    if logr_predictions_a[act_i]:
+        eff_l.append(act_f)
+    else:
+        eff_l.append(-act_f)
+    act_i += 1
+logr_effectiveness = np.sum(eff_l)
+print(yr_s,'logistic regression effectiveness:')
+print(logr_effectiveness)
 'bye'
