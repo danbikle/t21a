@@ -6,9 +6,8 @@ learn from it and then calculate predictions.
 
 Demo:
 cd ~/t21a/script/
-~/anaconda3/bin/python learn_predict.py ${HOME}/req/csv/history/TLT_feat.csv
+~/anaconda3/bin/python learn_predict.py ${HOME}/req/csv/history/^GSPC_feat.csv 2017
 """
-
 
 import datetime
 import os
@@ -19,14 +18,16 @@ import pdb
 import numpy  as np
 import pandas as pd
 
-if (len(sys.argv) != 2):
-  print('You should give the name of a CSV-file full of features.')
+if (len(sys.argv) != 3):
+  print('You should give the name of a CSV-file full of features and a year.')
   print('Demo:')
-  print('~/anaconda3/bin/python genf.py ${HOME}/req/csv/history/TLT_feat.csv')
+  print('~/anaconda3/bin/python genf.py ${HOME}/req/csv/history/^GSPC_feat.csv 2017')
   sys.exit(1)
 
 # I should get the path of the CSV-file:
 file_s = sys.argv[1]
+# I should get the year:
+yr_s = sys.argv[2]
 
 train_df = pd.read_csv(file_s)
 
