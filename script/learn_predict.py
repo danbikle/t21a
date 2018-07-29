@@ -26,8 +26,13 @@ if (len(sys.argv) != 3):
 
 # I should get the path of the CSV-file:
 file_s = sys.argv[1]
+feat_df  = pd.read_csv(file_s) # And read it.
 # I should get the year:
 yr_s = sys.argv[2]
+
+# I should get the test data using the year:
+test_df = feat_df.loc[feat_df.cdate.str.contains(yr_s)]
+test_df.head()
 
 train_df = pd.read_csv(file_s)
 
@@ -52,9 +57,9 @@ linr_mod.coef_
 linr_mod.intercept_
 # Now that I have learned, I should predict:
 p_i = 1000 # predictions
-test_a        = x_train_a[-p_i:]
+test_a        = np.array(test_df)[:,pctlag1_i:]
 predictions_a = linr_mod.predict(test_a)
-actuals_a     = y_train_a[-p_i:]
+actuals_a     = np.array(test_df)[:,pctlag1_i]
 # I should see if model works:
 effectiveness = np.sum(np.sign(predictions_a) * actuals_a)
 print('effectiveness:')
