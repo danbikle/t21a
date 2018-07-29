@@ -56,6 +56,12 @@ feat_df['pct_lag1'] = 100.0*((feat_df.cp - feat_df.cp.shift(1))/feat_df.cp.shift
 feat_df['pct_lag2'] = 100.0*((feat_df.cp - feat_df.cp.shift(2))/feat_df.cp.shift(2)).fillna(0)
 feat_df['pct_lag4'] = 100.0*((feat_df.cp - feat_df.cp.shift(4))/feat_df.cp.shift(4)).fillna(0)
 feat_df['pct_lag8'] = 100.0*((feat_df.cp - feat_df.cp.shift(8))/feat_df.cp.shift(8)).fillna(0)
+# I should extract combo-features:
+feat_df['comb12'] = feat_df.pct_lag1 * feat_df.pct_lag2
+feat_df['comb14'] = feat_df.pct_lag1 * feat_df.pct_lag4
+feat_df['comb18'] = feat_df.pct_lag1 * feat_df.pct_lag8
+feat_df['comb24'] = feat_df.pct_lag2 * feat_df.pct_lag4
+feat_df['comb28'] = feat_df.pct_lag2 * feat_df.pct_lag8
 
 feat_df.tail()
 'bye'
