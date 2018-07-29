@@ -46,7 +46,19 @@ from sklearn import linear_model
 linr_mod = linear_model.LinearRegression()
 linr_mod.fit(x_train_a, y_train_a)
 
+# I should look at the model:
+linr_mod.coef_
+linr_mod.intercept_
 # Now that I have learned, I should predict:
-
-  
+p_i = 1000 # predictions
+test_a        = x_train_a[-p_i:]
+predictions_a = linr_mod.predict(test_a)
+actuals_a     = y_train_a[-p_i:]
+# I should see if model works:
+effectiveness = np.sum(np.sign(predictions_a) * actuals_a)
+print('effectiveness:')
+print(effectiveness)
+# I should look at long-only effectiveness:
+print('lo_effectiveness:')
+print(np.sum(actuals_a))
 'bye'
