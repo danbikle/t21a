@@ -56,16 +56,19 @@ for moy_i in range(min_i,max_i):
 """
 # Now, I should get 'lag' features from price:
 feat_df['pct_lag1'] = 100.0*((feat_df.cp - feat_df.cp.shift(1))/feat_df.cp.shift(1)).fillna(0)
-feat_df['pct_lag2'] = 100.0*((feat_df.cp - feat_df.cp.shift(2))/feat_df.cp.shift(2)).fillna(0)
+#feat_df['pct_lag2'] = 100.0*((feat_df.cp - feat_df.cp.shift(2))/feat_df.cp.shift(2)).fillna(0)
 feat_df['pct_lag4'] = 100.0*((feat_df.cp - feat_df.cp.shift(4))/feat_df.cp.shift(4)).fillna(0)
-feat_df['pct_lag8'] = 100.0*((feat_df.cp - feat_df.cp.shift(8))/feat_df.cp.shift(8)).fillna(0)
+#feat_df['pct_lag8'] = 100.0*((feat_df.cp - feat_df.cp.shift(8))/feat_df.cp.shift(8)).fillna(0)
 # I should extract combo-features:
-feat_df['comb12'] = feat_df.pct_lag1 * feat_df.pct_lag2
-feat_df['comb14'] = feat_df.pct_lag1 * feat_df.pct_lag4
-feat_df['comb18'] = feat_df.pct_lag1 * feat_df.pct_lag8
-feat_df['comb24'] = feat_df.pct_lag2 * feat_df.pct_lag4
-feat_df['comb28'] = feat_df.pct_lag2 * feat_df.pct_lag8
-feat_df['comb48'] = feat_df.pct_lag4 * feat_df.pct_lag8
+pos1_sr = (feat_df.pct_lag1 > 0).astype('int')
+pos4_sr = (feat_df.pct_lag4 > 0).astype('int')
+neg1_sr = (feat_df.pct_lag1 <= 0).astype('int')
+neg4_sr = (feat_df.pct_lag4 <= 0).astype('int')
+feat_df['comb14a'] = feat_df.pct_lag1 * feat_df.pct_lag4 * pos1_sr * pos4_sr
+feat_df['comb14b'] = feat_df.pct_lag1 * feat_df.pct_lag4 * pos1_sr * neg4_sr
+feat_df['comb14c'] = feat_df.pct_lag1 * feat_df.pct_lag4 * neg1_sr * pos4_sr
+feat_df['comb14d'] = feat_df.pct_lag1 * feat_df.pct_lag4 * neg1_sr * neg4_sr
+
 
 # I should write features to csv-file:
 featfile_s = file_s.replace('.csv','_feat.csv')

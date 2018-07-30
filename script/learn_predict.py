@@ -17,6 +17,7 @@ import time
 import pdb
 import numpy  as np
 import pandas as pd
+from sklearn import linear_model
 
 if (len(sys.argv) != 4):
   print('You should give the name of a CSV-file full of features and a year.')
@@ -56,8 +57,6 @@ pctlag1_i  = 3
 x_train_a = train_a[:,pctlag1_i:]
 y_train_a = train_a[:,pctlead_i]
 # I should learn from x_train_a,y_train_a:
-from sklearn import linear_model
-
 linr_mod = linear_model.LinearRegression()
 linr_mod.fit(x_train_a, y_train_a)
 
@@ -70,15 +69,17 @@ predictions_a = linr_mod.predict(test_a)
 actuals_a     = np.array(test_df)[:,pctlag1_i]
 # I should see if model works:
 effectiveness = np.sum(np.sign(predictions_a) * actuals_a)
-print(yr_s,'effectiveness:')
-print(effectiveness)
-# I should look at long-only effectiveness:
-print(yr_s,'lo_effectiveness:')
+# I should show long-only effectiveness:
+print(yr_s,'Long Only effectiveness:')
 print(np.sum(actuals_a))
+# I should show LinearRegression effectiveness:
+print(yr_s,'LinearRegression effectiveness:')
+print(effectiveness)
 
 # I should use Logistic Regression next:
-label_train_a = y_train_a > 0
-logr_mod  = linear_model.LogisticRegression()
+# label_train_a = y_train_a > 0
+label_train_a = y_train_a > np.median(y_train_a)
+logr_mod      = linear_model.LogisticRegression()
 logr_mod.fit(x_train_a, label_train_a)
 
 # I should look at the model:
